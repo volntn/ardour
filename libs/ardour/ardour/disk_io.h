@@ -24,6 +24,7 @@
 #include <string>
 #include <exception>
 
+#include "pbd/raringbuffer.h"
 #include "pbd/ringbufferNPT.h"
 #include "pbd/rcu.h"
 
@@ -153,10 +154,10 @@ protected:
 		ChannelInfo (samplecnt_t buffer_size);
 		virtual ~ChannelInfo ();
 
-		/** Ringbuffer for data to be played back.
+		/** A random-access ringbuffer for data to be played back.
 		 * written to in the butler thread, read from in the process thread.
 		 */
-		PBD::RingBufferNPT<Sample>* buf;
+		PBD::RaRingBuffer<Sample>* rbuf;
 
 		/** A ringbuffer for data to be recorded back, written to in the
 		 * process thread, read from in the butler thread.
